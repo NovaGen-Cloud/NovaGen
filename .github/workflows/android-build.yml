@@ -1,0 +1,65 @@
+name: NovaGen Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Fix project folders
+        run: |
+          mkdir -p src assets
+
+          for f in app.js countries.js name-packs.js names.js styles.css totp.js; do
+            if [ -f "$f" ]; then
+              mv "$f" src/
+            fi
+          done
+
+          if [ -f "logo.svg" ]; then
+            mv logo.svg assets/
+          fi
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Capacitor Android
+        run: npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Build Debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: NovaGen-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
