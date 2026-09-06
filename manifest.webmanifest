@@ -1,0 +1,15 @@
+{
+  "name": "NovaGen",
+  "short_name": "NovaGen",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#0b1220",
+  "background_color": "#0b1220",
+  "icons": [
+    {
+      "src": "./assets/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
