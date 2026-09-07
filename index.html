@@ -1,8 +1,160 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" <link rel="stylesheet" href="./src/styles.css"> content="#0b1220"><link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./assets/logo.svg"><title>NovaGen</title></head><body>
-<header><button id="menuBtn" aria-label="Menu">⋮</button><div class="brand"><img src="./assets/logo.svg">NovaGen</div><button id="themeBtn">☀ Light</button></header>
-<main><section class="hero"><small>UTILITY SUITE</small><h1>Generate. Secure. Simple.</h1><p id="quote"></p></section>
-<div class="tabs"><button class="tab active" data-mode="names">Name Generator</button><button class="tab" data-mode="totp">2FA / TOTP</button></div>
-<section id="namesPanel" class="panel"><label>Country</label><input id="countrySearch" placeholder="Search country, ISO or alias"><select id="country"></select><div class="controls"><label>Gender<select id="gender"><option value="random">Random</option><option value="male">Male</option><option value="female">Female</option></select></label><label>Quantity<input id="quantity" type="number" min="1" max="20" value="5"></label></div><button id="generateBtn" class="primary">Generate Names</button><div id="namesList"></div></section>
-<section id="totpPanel" class="panel hidden"><label>Secret or otpauth:// URI</label><textarea id="secret" rows="3" placeholder="Paste your TOTP secret or otpauth:// URI"></textarea><div class="controls"><label>Algorithm<select id="algorithm"><option>SHA1</option><option>SHA256</option><option>SHA512</option></select></label><label>Digits<select id="digits"><option>6</option><option>8</option></select></label><label>Period<input id="period" type="number" min="1" max="120" value="30"></label></div><div id="totpCard"><div id="code">••••••</div><div id="timer">Enter a secret</div></div><p id="error"></p></section></main>
-<div id="menu" class="menu hidden"><button id="featuresBtn">App Features</button></div><dialog id="dialog"><h2>App Features</h2><ul><li>195-country catalog</li><li>Modular name packs</li><li>Runtime-only TOTP</li><li>Light / Dark themes</li><li>Bangla + English quotes</li><li>Offline-first</li></ul><button id="closeBtn">Close</button></dialog>
-<script type="module" src="./src/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+
+  <link rel="stylesheet" href="./src/styles.css">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/logo.svg">
+
+  <title>NovaGen</title>
+</head>
+
+<body>
+
+<header>
+  <button id="menuBtn" aria-label="Menu">⋮</button>
+
+  <div class="brand">
+    <img src="./assets/logo.svg" alt="NovaGen">
+    <span>NovaGen</span>
+  </div>
+
+  <button id="themeBtn">☀ Light</button>
+</header>
+
+<main>
+
+  <section class="hero">
+    <small>UTILITY SUITE</small>
+    <h1>Generate. Secure. Simple.</h1>
+    <p id="quote"></p>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" data-mode="names">Name Generator</button>
+    <button class="tab" data-mode="totp">2FA / TOTP</button>
+  </div>
+
+  <section id="namesPanel" class="panel">
+
+    <label>Country</label>
+
+    <div class="country-row">
+      <input
+        id="countrySearch"
+        placeholder="Search country, ISO or alias"
+      >
+      <select id="country"></select>
+    </div>
+
+    <div class="controls">
+
+      <label>
+        Gender
+        <select id="gender">
+          <option value="random">Random</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+
+      <label>
+        Quantity
+        <input
+          id="quantity"
+          type="number"
+          min="1"
+          max="20"
+          value="5"
+        >
+      </label>
+
+    </div>
+
+    <button id="generateBtn" class="primary">
+      Generate Names
+    </button>
+
+    <div id="namesList"></div>
+
+  </section>
+
+  <section id="totpPanel" class="panel hidden">
+
+    <label>Secret or otpauth:// URI</label>
+
+    <textarea
+      id="secret"
+      rows="3"
+      placeholder="Paste your TOTP secret or otpauth:// URI"
+    ></textarea>
+
+    <div class="controls">
+
+      <label>
+        Algorithm
+        <select id="algorithm">
+          <option>SHA1</option>
+          <option>SHA256</option>
+          <option>SHA512</option>
+        </select>
+      </label>
+
+      <label>
+        Digits
+        <select id="digits">
+          <option>6</option>
+          <option>8</option>
+        </select>
+      </label>
+
+      <label>
+        Period
+        <input
+          id="period"
+          type="number"
+          min="1"
+          max="120"
+          value="30"
+        >
+      </label>
+
+    </div>
+
+    <div id="totpCard">
+      <div id="code">••••••</div>
+      <div id="timer">Enter a secret</div>
+    </div>
+
+    <p id="error"></p>
+
+  </section>
+
+</main>
+
+<div id="menu" class="menu hidden">
+  <button id="featuresBtn">App Features</button>
+</div>
+
+<dialog id="dialog">
+  <h2>App Features</h2>
+
+  <ul>
+    <li>195-country catalog</li>
+    <li>Modular name packs</li>
+    <li>Runtime-only TOTP</li>
+    <li>Light / Dark themes</li>
+    <li>Bangla + English quotes</li>
+    <li>Offline-first</li>
+  </ul>
+
+  <button id="closeBtn">Close</button>
+</dialog>
+
+<script type="module" src="./src/app.js"></script>
+
+</body>
+</html>
