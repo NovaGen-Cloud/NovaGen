@@ -17,34 +17,38 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: "22"
           package-manager-cache: false
 
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          distribution: temurin
-          java-version: '21'
-
-      - name: Check project files
-        run: |
-          node --version
-          npm --version
-          ls -la
+          distribution: "temurin"
+          java-version: "21"
 
       - name: Fix project structure
+        shell: bash
         run: |
           mkdir -p src assets
-
           for f in app.js countries.js name-packs.js names.js styles.css totp.js; do
             if [ -f "$f" ]; then
               mv "$f" src/
             fi
           done
-
           if [ -f "logo.svg" ]; then
             mv logo.svg assets/
           fi
+
+      - name: Prepare web assets
+        shell: bash
+        run: |
+          rm -rf www
+          mkdir -p www
+          cp index.html www/
+          if [ -f manifest.webmanifest ]; then cp manifest.webmanifest www/; fi
+          if [ -f sw.js ]; then cp sw.js www/; fi
+          cp -r src www/
+          cp -r assets www/
 
       - name: Install dependencies
         run: npm install --no-audit --no-fund
@@ -54,16 +58,6 @@ jobs:
 
       - name: Install TypeScript
         run: npm install --save-dev typescript --no-audit --no-fund
-        
-              - name: Prepare web assets
-        run: |
-          rm -rf www
-          mkdir -p www
-          cp index.html www/
-          cp manifest.webmanifest www/ 2>/dev/null || true
-          cp sw.js www/ 2>/dev/null || true
-          cp -r src www/
-          cp -r assets www/
 
       - name: Add Android platform
         run: npx cap add android
@@ -72,8 +66,8 @@ jobs:
         run: npx cap sync android
 
       - name: Build APK
+        working-directory: android
         run: |
-          cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
