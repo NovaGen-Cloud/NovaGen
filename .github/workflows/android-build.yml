@@ -54,6 +54,16 @@ jobs:
 
       - name: Install TypeScript
         run: npm install --save-dev typescript --no-audit --no-fund
+        
+              - name: Prepare web assets
+        run: |
+          rm -rf www
+          mkdir -p www
+          cp index.html www/
+          cp manifest.webmanifest www/ 2>/dev/null || true
+          cp sw.js www/ 2>/dev/null || true
+          cp -r src www/
+          cp -r assets www/
 
       - name: Add Android platform
         run: npx cap add android
